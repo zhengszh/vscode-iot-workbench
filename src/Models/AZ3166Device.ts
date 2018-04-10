@@ -379,27 +379,8 @@ export class AZ3166Device implements Device {
       console.log(deviceConnectionString);
 
       // Set selected connection string to device
-      let res: boolean;
-      const plat = os.platform();
-      if (plat === 'win32') {
-        res = await this.flushDeviceConnectionString(deviceConnectionString);
-      } else {
-        const selection = await vscode.window.showQuickPick(
-            [{
-              label:
-                  'Please hold down button A and then push and release the reset button to enter configuration mode.',
-              description: '',
-              detail: 'Click or press Enter to continue.'
-            }],
-            {
-              ignoreFocusOut: true,
-              matchOnDescription: true,
-              matchOnDetail: true,
-              placeHolder: 'Waiting to confirm to enter configuration mode'
-            });
-        res =
-            await this.flushDeviceConnectionStringUnix(deviceConnectionString);
-      }
+      const res =
+          await this.flushDeviceConnectionString(deviceConnectionString);
 
       if (res === false) {
         return false;
@@ -513,7 +494,7 @@ export class AZ3166Device implements Device {
           });
 
           // tslint:disable-next-line: no-any
-          port.on('data', (data: any) => {
+          port.on('data', async (data: any) => {
             gotData = true;
             const output = data.toString().trim();
 
@@ -521,9 +502,22 @@ export class AZ3166Device implements Device {
             if (output.includes('set_')) {
               commandExecuted = true;
               configMode = true;
-              executeSetAzIoTHub()
-                  .then(() => resolve(true))
-                  .catch((error) => reject(error));
+              const plat = os.platform();
+              if (plat === 'win32') {
+                executeSetAzIoTHub()
+                    .then(() => resolve(true))
+                    .catch((error) => reject(error));
+              } else {
+                port.close();
+                await delay(1000);
+                try {
+                  const res = await this.flushDeviceConnectionStringUnix(
+                      connectionString);
+                  return resolve(res);
+                } catch (error) {
+                  return reject(error);
+                }
+              }
             } else {
               configMode = false;
             }
