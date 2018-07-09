@@ -56,7 +56,7 @@
             "difficulty": "easy"
         },
         {
-            "name": "DevKit State fucking",
+            "name": "DevKit State",
             "project_name": "devkit_state",
             "description": "Monitor DevKit states and control the user LED with Azure IoT Hub device twins.",
             "url": "https://github.com/IoTDevEnvExamples/DevKitState/archive/master.zip",
