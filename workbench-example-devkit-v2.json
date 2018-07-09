@@ -65,7 +65,7 @@
             "difficulty": "easy"
         },
         {
-            "name": "Door Monitor",
+            "name": "Door Monitor test",
             "project_name": "devkit_doormonitor",
             "description": "Use magnetic sensor to detect the change of magnetic field, and send notifications.",
             "url": "https://github.com/IoTDevEnvExamples/DevKitDoorMonitor/archive/master.zip",
