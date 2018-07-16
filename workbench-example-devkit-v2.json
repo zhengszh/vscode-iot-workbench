@@ -78,7 +78,7 @@
             "project_name": "FirmwareOTA",
             "description": "Use IoT Hub to perform firmware OTA update for DevKit.",
             "url": "https://github.com/IoTDevEnvExamples/FirmwareOTA/archive/master.zip",
-            "image": "https://microsoft.github.io/azure-iot-developer-kit/assets/images/projects-dps.jpg",
+            "image": "https://github.com/zhengszh/vscode-iot-workbench/blob/master/projects-OTA-firmware-update-th.jpg?raw=true",
             "tutorial": "https://docs.microsoft.com/en-us/azure/iot-dps/how-to-connect-mxchip-iot-devkit",
             "difficulty": "easy"
         }
